@@ -6,10 +6,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Client {
+public class Client2 {
 	private Socket socket;
 	private DataOutputStream dataOutputStream;
-	public Client() {
+	public Client2() {
 		// this is user client
 		
 		try {
@@ -51,15 +51,13 @@ public class Client {
 	}
 	
 	public static void main(String[] args) {
-		Client aClient = new Client();
-		aClient.connectServer("noneface");
+		Client2 aClient = new Client2();
+		aClient.connectServer("haha");
 		Scanner input = new Scanner(System.in);
 		while(true){
-			
-			String datagram = "From:noneface\nTo:haha\n";
+			String datagram = "From:haha\nTo:noneface\n";
 			datagram += "Type:Message\n";
 			datagram += "Data:"+input.nextLine()+"\n";
-			
 			aClient.sendData(datagram);
 		}
 	}
