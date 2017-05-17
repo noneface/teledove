@@ -41,14 +41,13 @@ public class Server {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String message;
 			while(!((message=br.readLine()).equals("Done"))){
-				username = message.split(":")[1];
+				if(message.split(":")[0].equals("username"))
+					username = message.split(":")[1];
 			}
 			if(this.socketPool.get(username) == null){
-				System.out.println(username+" is login");
 				this.alterOnlineUser(username);
 				this.socketPool.put(username, socket);
-			}
-			
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
