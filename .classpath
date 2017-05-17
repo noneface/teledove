@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/teledove/lib/hibernate-commons-annotations-4.0.5.Final.jar"/>
-	<classpathentry kind="lib" path="D:/teledove/lib/hibernate-core-4.3.10.Final.jar"/>
-	<classpathentry kind="lib" path="D:/teledove/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="D:/teledove/lib/mysql-connector-java-5.1.38.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-commons-annotations-4.0.5.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-core-4.3.10.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.38.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
