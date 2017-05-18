@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class loginPanel extends JPanel{
+public class registerPanel extends JPanel{
 	
 	private JLabel jlabel;
 	private JTextField jField;
@@ -17,13 +17,13 @@ public class loginPanel extends JPanel{
 	private JButton jButton_1;
 	private mainPanel mainpanel;
 	
-    public loginPanel(mainPanel mainpanel){
+    public registerPanel(mainPanel mainpanel){
     	this.mainpanel = mainpanel;
     	  this.setLayout(null);
     	  this.setBounds(600, 300, 600, 500);
     	  this.validate();
     	 
-    	  jlabel = new JLabel("登录");
+    	  jlabel = new JLabel("注册");
     	  jlabel.setBounds(240, 50, 150, 70);
     	  jlabel.setFont(new Font ("隶书", Font.BOLD, 50));
     	  this.add(jlabel);
@@ -51,9 +51,9 @@ public class loginPanel extends JPanel{
     	  this.add(jButton);
     	  
     	  jButton_1 = new JButton("注册");
-    	  jButton_1.addActionListener(new ActionListener() {
+    	  jButton.addActionListener(new ActionListener() {
     	  	public void actionPerformed(ActionEvent arg0) {
-    	  		mainpanel.card.next(mainpanel);
+    	  		mainpanel.card.previous(mainpanel);
     	  	}
     	  });
     	  jButton_1.setBounds(320, 293, 120, 30);

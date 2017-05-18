@@ -1,14 +1,17 @@
 package com.teledove.windowComponet;
 
+import java.awt.CardLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JButton;
 
 public class loginFrame extends JFrame{
 	public loginFrame(){
-	   loginPanel loginPanel = new loginPanel();
-	   this.setContentPane(loginPanel);
-	   this.setBounds(700,290,600,500);
-		
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	   mainPanel mainpanel = new mainPanel();
+	   this.setContentPane(mainpanel);
+	   this.setBounds(700,290,597,467);
+
+	   this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.validate();
 		this.setVisible(true);
 	}
