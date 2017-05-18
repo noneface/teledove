@@ -1,9 +1,7 @@
 package com.teledove.windowComponet;
 
-import java.awt.CardLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JButton;
+
 
 public class loginFrame extends JFrame{
 	public loginFrame(){
