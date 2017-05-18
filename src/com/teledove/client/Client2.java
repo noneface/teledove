@@ -29,10 +29,12 @@ public class Client2 {
 	public void connectServer(String username){
 		
 		try {
-			String message = "username:"+username+"\n";
-			this.dataOutputStream.write(message.getBytes());
-			message = "Done\n";
-			this.dataOutputStream.write(message.getBytes());
+			String datagram = "From:Anonymous\n";
+			datagram += "To:Server\n";
+			datagram += "username:"+username+"\n";
+			datagram += "password:test for login\n";
+			this.dataOutputStream.write(datagram.getBytes());
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
