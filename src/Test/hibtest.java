@@ -2,6 +2,8 @@ package Test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -11,23 +13,29 @@ import com.teledove.model.User;
 
 public class hibtest {
 
-	@Test
+	/*
+	 * @Test
+	 
 	public void test() {
 		Session session = HibernateUtil.getSession();
 		User user = new User();
-		user.setId(1);
-		user.setUsername("noneface");
+		user.setId(2);
+		user.setUsername("xiaoyu");
 		user.setPassword("123456");
 		session.getTransaction().begin();
 		session.save(user);
 		session.getTransaction().commit();
 	}
+	*/
 	@Test
 	public void load(){
 		Session session = HibernateUtil.getSession();
 		Dao dao = new Dao();
-		User user = dao.login("noneface","123456");
-		System.out.println(user.getId());
+		List<User> userlist = dao.load();
+		for(int i=0;i<userlist.size();i++)
+		{
+			System.out.println(userlist.get(i).getId());
+		}
 	}
 
 }

@@ -26,4 +26,24 @@ public class Dao {
 		HibernateUtil.getSession().getTransaction().commit();
 		return user;
     }
+    public List<User> load(){
+    	String hql ="from User";
+    	HibernateUtil.getSession().getTransaction().begin();
+    	Query query = HibernateUtil.getSession().createQuery(hql);
+
+		List<User> user = null;
+		List<User> ulist = query.list(); 
+		if(ulist!=null & ulist.size()>0){
+			user= ulist;
+		}
+
+		HibernateUtil.getSession().getTransaction().commit();
+		
+		return user;
+    }
+    public void add(User user){
+    	HibernateUtil.getSession().getTransaction().begin();
+    	HibernateUtil.getSession().save(user);
+    	HibernateUtil.getSession().getTransaction().commit();
+    }
 }

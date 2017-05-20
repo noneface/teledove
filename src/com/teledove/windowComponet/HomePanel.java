@@ -1,7 +1,12 @@
 package com.teledove.windowComponet;
 
 import javax.swing.JPanel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -9,14 +14,19 @@ import javax.swing.JScrollPane;
 
 import javax.swing.JSpinner;
 
+import com.teledove.dao.Dao;
 import com.teledove.model.User;
+import com.teledove.model.UserState;
+
 import javax.swing.JComboBox;
 
 public class HomePanel extends JPanel{
-	private JList<User> user;
+	private JList user;
 	private JScrollPane scrollPane;
 	public JLabel lblNewLabel;
 	private JLabel label;
+	private Dao dao;
+	private UserState userState;
 	
 	public HomePanel(){
 		this.setLayout(null);
@@ -25,10 +35,16 @@ public class HomePanel extends JPanel{
     	this.lblNewLabel = new JLabel("账号名");
     	lblNewLabel.setBounds(89, 30, 72, 18);
     	add(lblNewLabel);
-    	
+    	  dao = new Dao();
+    	  List<User> list = dao.load();
     	  
+    	  DefaultListModel userModel = new DefaultListModel();
+    	  for(int i=0;i<list.size();i++){
+    		  userState = new UserState(list.get(i).getUsername(),"离线");
+    		  userModel.addElement(userState.getUsername()+"("+userState.getUserState()+")");
+    	  }
     	  
-    	  user = new JList<User>();
+    	  user = new JList(userModel);
     	  
     	  scrollPane = new JScrollPane(user);
     	  scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
