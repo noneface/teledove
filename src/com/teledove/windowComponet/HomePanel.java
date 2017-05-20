@@ -15,13 +15,15 @@ import javax.swing.JComboBox;
 public class HomePanel extends JPanel{
 	private JList<User> user;
 	private JScrollPane scrollPane;
-      public HomePanel(){
-    	  this.setLayout(null);
-    	  this.setBounds(100, 100, 292, 570);
+	public JLabel lblNewLabel;
+	
+	public HomePanel(){
+		this.setLayout(null);
+    	this.setBounds(100, 100, 292, 570);
     	  
-    	  JLabel lblNewLabel = new JLabel("账号名");
-    	  lblNewLabel.setBounds(36, 30, 72, 18);
-    	  add(lblNewLabel);
+    	this.lblNewLabel = new JLabel("账号名");
+    	lblNewLabel.setBounds(36, 30, 72, 18);
+    	add(lblNewLabel);
     	  
     	  user = new JList<User>();
     	  

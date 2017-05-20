@@ -53,19 +53,28 @@ public class receiveClientDataThread extends Thread {
 		if(this.server.userDao.login(username, password) != null){
 			if(this.server.socketPool.get(username) == null){
 				this.server.socketPool.put(username, this.socket);
-				System.out.println(username+" is Login.");
+				String senddatagram = "From:Server\n";
+				senddatagram += "To:"+username+"\n";
+				senddatagram += "Type:Login\n";
+				senddatagram += "Data:Success\n";
+				this.server.sendData(this.socket, senddatagram);
+				this.server.showOnlineUser(socket, username);
 			}else{
 				System.out.println(username+" has already Logged.");
 			}
 		}else{
-			System.out.println(username+"'s password error");
+			String senddatagram = "From:Server\n";
+			senddatagram += "To:"+username+"\n";
+			senddatagram += "Type:Login\n";
+			senddatagram += "Data:Failed\n";
+			this.server.sendData(this.socket, senddatagram);
 		}
 	}
 	
 	public void dispatchDatagram(String To, String datagram, String type){
 		if(To.equals("Server")){
 			if(type.equals("Login")){
-				loginService(datagram);
+				loginService(datagram);				
 			}else if (type.equals("Register")) {
 				
 			}
@@ -96,8 +105,7 @@ public class receiveClientDataThread extends Thread {
 						type = message.split(":")[1];
 				}
 
-				System.out.println(datagram);
-				System.out.println("\n");
+				System.out.print(datagram);
 				this.dispatchDatagram(to, datagram, type);
 			} 
 			
