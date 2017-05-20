@@ -27,7 +27,6 @@ public class Client {
 	}
 	
 	public void connectServer(String username){
-		
 		try {
 			String datagram = "From:Anonymous\n";
 			datagram += "To:Server\n";
