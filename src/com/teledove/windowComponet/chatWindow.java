@@ -33,19 +33,12 @@ public class chatWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public chatWindow() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 5, 419, 190);
-		contentPane.add(scrollPane);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(331, 228, 93, 23);
-		contentPane.add(btnNewButton);
+		ChatPanel chatPanel = new ChatPanel();
+		this.setTitle("与"+"xx"+"对话中");
+		this.setContentPane(chatPanel);
+		this.setBounds(100, 100, 561, 535);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.validate();
+		this.setVisible(true);
 	}
 }
