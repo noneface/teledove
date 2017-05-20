@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 public class loginPanel extends JPanel{
 	
 	private JLabel jlabel;
-	private JTextField jField1,jField2;
+	private JTextField usernameField,passwordField;
 	private JButton jButton;
 	private JButton jButton_1;
 	private mainPanel mainpanel;
@@ -38,19 +38,20 @@ public class loginPanel extends JPanel{
     	  jlabel.setFont(new Font (Font.DIALOG, Font.BOLD, 22));
     	  this.add(jlabel);	  
     	  
-    	  jField1 = new JTextField();
-    	  jField1.setBounds(220, 160, 200, 30);
-    	  this.add(jField1);
+    	  usernameField = new JTextField();
+    	  usernameField.setBounds(220, 160, 200, 30);
+    	  this.add(usernameField);
     	  
-    	  jField2 = new JTextField();
-    	  jField2.setBounds(220, 215, 200, 30);
-    	  this.add(jField2);
+    	  passwordField = new JTextField();
+    	  passwordField.setBounds(220, 215, 200, 30);
+    	  this.add(passwordField);
     	  
     	  jButton = new JButton("登录");
     	  jButton.addActionListener(new ActionListener() {
     	  	public void actionPerformed(ActionEvent arg0) {
-    	  		String username = jField1.getText();
-    	  		String password = jField2.getText();
+    	  		String username = usernameField.getText();
+    	  		String password = passwordField.getText();
+    	  		mainpanel.client.connectServer(username, password);
     	  	}
     	  });
     	  jButton.setBounds(100, 293, 120, 30);
