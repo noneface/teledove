@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.teledove.model.UserState;
 import com.teledove.windowComponet.Home;
 
@@ -18,6 +21,23 @@ public class receiveServerDataThread extends Thread {
 		// TODO Auto-generated constructor stub
 		this.socket = socket;
 		this.client = client;
+	}
+	
+
+	public void dispatchDatagram(String From, String datagram, String type){
+		if(From.equals("Server")){
+			if(type.equals("Login")){
+				processLogin(datagram);
+			}else if (type.equals("Register")) {
+				
+			}else if(type.equals("AllState")){
+				processAllState(datagram);
+			}else if(type.equals("Notify")){
+				processAlterState(datagram);
+			}
+		}else{
+			
+		}
 	}
 	
 	public void processLogin(String datagram){
@@ -34,9 +54,11 @@ public class receiveServerDataThread extends Thread {
 		if(Confirm.equals("Success")){
 			this.client.getLoginFrame().dispose();
 			this.client.setUserState(new UserState(username, "online"));
-			this.client.setHome(new Home());
+			Home home = new Home();
+			home.homePanel.user.setModel(this.client.userModel);
+			this.client.setHome(home);
 		}else{
-			System.out.println("Login error");
+			JOptionPane.showMessageDialog(null, "登录失败", "噢哦~", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -63,17 +85,37 @@ public class receiveServerDataThread extends Thread {
 		
 	}
 	
-	
-	public void dispatchDatagram(String From, String datagram, String type){
-		if(From.equals("Server")){
-			if(type.equals("Login")){
-				processLogin(datagram);
-			}else if (type.equals("Register")) {
-				
-			}
-		}else{
-			
+	public void processAllState(String datagram){
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			String[] message = s.split(":");
+			if(message[0].equals("State")){
+				String username = message[1].split("/")[0];
+				String state = message[1].split("/")[1];
+				this.client.userModel.addElement(username+"/"+state);
+			}	
 		}
+	}
+	
+	public void processAlterState(String datagram){
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			String[] message = s.split(":");
+			if(message[0].equals("State")){
+				String username = message[1].split("/")[0];
+				String state = message[1].split("/")[1];
+				for(int i=0;i<this.client.userModel.size();i++){
+					String current = (String) this.client.userModel.get(i);
+					String[] temp = current.split("/");
+					if(temp[0].equals(username)){
+						this.client.userModel.remove(i);
+						break;
+					}
+				}
+				this.client.userModel.addElement(username+"/"+state);
+			}	
+		}
+		
 	}
 	
 	@Override

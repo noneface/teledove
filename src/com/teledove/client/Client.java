@@ -3,7 +3,11 @@ package com.teledove.client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
+
+import com.teledove.dao.Dao;
 import com.teledove.model.User;
 import com.teledove.model.UserState;
 import com.teledove.windowComponet.Home;
@@ -15,9 +19,13 @@ public class Client {
 	private loginFrame loginFrame;
 	private Home home;
 	private UserState userState;
+	public DefaultListModel userModel;
+	
 	
 	public Client() {
 		// this is user client
+
+		this.userModel = new DefaultListModel();
 		
 		this.loginFrame = new loginFrame(this);
 		

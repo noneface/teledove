@@ -22,6 +22,7 @@ public class receiveClientDataThread extends Thread {
 	public void validate(String username, String password){
 		if(this.server.userDao.login(username, password) != null){
 			if(this.server.socketPool.get(username) == null){
+				this.server.showOnlineUser(socket, username);
 				this.server.alterOnlineUser(username);
 				this.server.socketPool.put(username, this.socket);
 				this.username = username;
@@ -29,8 +30,7 @@ public class receiveClientDataThread extends Thread {
 				senddatagram += "To:"+username+"\n";
 				senddatagram += "Type:Login\n";
 				senddatagram += "Data:Success\n";
-				this.server.sendData(this.socket, senddatagram);
-				this.server.showOnlineUser(socket, username);
+				this.server.sendData(this.socket, senddatagram);	
 				
 			}else{
 				String senddatagram = "From:Server\n";

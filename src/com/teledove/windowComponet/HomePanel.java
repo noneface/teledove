@@ -21,12 +21,11 @@ import com.teledove.model.UserState;
 import javax.swing.JComboBox;
 
 public class HomePanel extends JPanel{
-	private JList user;
+	public JList user;
 	private JScrollPane scrollPane;
 	public JLabel lblNewLabel;
 	private JLabel label;
-	private Dao dao;
-	private UserState userState;
+
 	
 	public HomePanel(){
 		this.setLayout(null);
@@ -35,32 +34,24 @@ public class HomePanel extends JPanel{
     	this.lblNewLabel = new JLabel("账号名");
     	lblNewLabel.setBounds(89, 30, 72, 18);
     	add(lblNewLabel);
-    	  dao = new Dao();
-    	  List<User> list = dao.load();
+    	
+    	user = new JList();
     	  
-    	  DefaultListModel userModel = new DefaultListModel();
-    	  for(int i=0;i<list.size();i++){
-    		  userState = new UserState(list.get(i).getUsername(),"离线");
-    		  userModel.addElement(userState.getUsername()+"("+userState.getUserState()+")");
-    	  }
+    	scrollPane = new JScrollPane(user);
+    	scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
+    	scrollPane.setBounds(14, 82, 264, 432);
+    	add(scrollPane);
     	  
-    	  user = new JList(userModel);
+    	JComboBox<String> comboBox = new JComboBox<String>();
+    	comboBox.addItem("在线");
+    	comboBox.addItem("隐身");
+    	comboBox.setBounds(203, 27, 58, 24);
+    	add(comboBox);
     	  
-    	  scrollPane = new JScrollPane(user);
-    	  scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
-    	  scrollPane.setBounds(14, 82, 264, 432);
-    	  add(scrollPane);
+    	label = new JLabel("\u7528\u6237\u540D");
+    	label.setBounds(21, 30, 58, 18);
+    	add(label);
     	  
-    	  JComboBox<String> comboBox = new JComboBox<String>();
-    	  comboBox.addItem("在线");
-    	  comboBox.addItem("隐身");
-    	  comboBox.setBounds(203, 27, 58, 24);
-    	  add(comboBox);
-    	  
-    	  label = new JLabel("\u7528\u6237\u540D");
-    	  label.setBounds(21, 30, 58, 18);
-    	  add(label);
-    	  
-    	  this.validate();
+    	this.validate();
       } 
 }
