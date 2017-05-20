@@ -8,14 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class loginPanel extends JPanel{
 	
 	private JLabel jlabel;
-	private JTextField usernameField,passwordField;
+	private JTextField usernameField;
 	private JButton jButton;
 	private JButton jButton_1;
 	private mainPanel mainpanel;
+	private JPasswordField passwordField;
 	
     public loginPanel(mainPanel mainpanel){
     	this.mainpanel = mainpanel;
@@ -42,10 +44,6 @@ public class loginPanel extends JPanel{
     	  usernameField.setBounds(220, 160, 200, 30);
     	  this.add(usernameField);
     	  
-    	  passwordField = new JTextField();
-    	  passwordField.setBounds(220, 215, 200, 30);
-    	  this.add(passwordField);
-    	  
     	  jButton = new JButton("登录");
     	  jButton.addActionListener(new ActionListener() {
     	  	public void actionPerformed(ActionEvent arg0) {
@@ -65,6 +63,9 @@ public class loginPanel extends JPanel{
     	  });
     	  jButton_1.setBounds(320, 293, 120, 30);
     	  this.add(jButton_1);
+    	  
+    	  passwordField = new JPasswordField();
+    	  passwordField.setBounds(220, 221, 200, 30);
+    	  add(passwordField);
       }
-      
 }
