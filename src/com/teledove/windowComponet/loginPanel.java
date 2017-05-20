@@ -20,10 +20,11 @@ public class loginPanel extends JPanel{
 	private JPasswordField passwordField;
 	
     public loginPanel(mainPanel mainpanel){
+
     	this.mainpanel = mainpanel;
-    	  this.setLayout(null);
-    	  this.setBounds(600, 300, 600, 500);
-    	  this.validate();
+    	this.setLayout(null);
+    	this.setBounds(600, 300, 600, 500);
+    	this.validate();
     	 
     	  jlabel = new JLabel("登录");
     	  jlabel.setBounds(240, 50, 150, 70);
