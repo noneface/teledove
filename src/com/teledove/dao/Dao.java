@@ -3,10 +3,14 @@ package com.teledove.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import com.teledove.model.User;
 
 public class Dao {
+	
+
+	
     public User login(String username,String password){
     	String hql = "from User where username=? and password=?";
     	HibernateUtil.getSession().getTransaction().begin();

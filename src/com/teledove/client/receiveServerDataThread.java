@@ -41,6 +41,29 @@ public class receiveServerDataThread extends Thread {
 		
 	}
 	
+	
+	public void processRegister(String datagram){
+		String Confirm="";
+		String username=null;
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			if(s.split(":")[0].equals("Data"))
+				Confirm = s.split(":")[1];
+			if(s.split(":")[0].equals("To"))
+				username = s.split(":")[1];
+		}
+		
+		if(Confirm.equals("Success")){
+			this.client.getLoginFrame().dispose();
+			this.client.setUserState(new UserState(username, "online"));
+			this.client.setHome(new Home());
+		}else{
+			System.out.println("Login error");
+		}
+		
+	}
+	
+	
 	public void dispatchDatagram(String From, String datagram, String type){
 		if(From.equals("Server")){
 			if(type.equals("Login")){

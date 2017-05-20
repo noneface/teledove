@@ -10,55 +10,28 @@ public class receiveClientDataThread extends Thread {
 	
 	private Server server;
 	private Socket socket;
+	private String username;
 	
 	public receiveClientDataThread(Server server, Socket socket) {
 		// TODO Auto-generated constructor stub
 		this.server = server;
 		this.socket = socket;
+		this.username = "Anonymous";
 	}
 	
-	
-	public String validateSocket(Socket socket){
-		String username = null;
-		try {
-			InputStream is = socket.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String message;
-			while(!((message=br.readLine()).equals("Done"))){
-				if(message.split(":")[0].equals("username"))
-					username = message.split(":")[1];
-			}
-			if(this.server.socketPool.get(username) == null){
-				this.server.alterOnlineUser(username);
-				this.server.socketPool.put(username, socket);
-			}	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return username;
-	}
-	
-	public void loginService(String datagram){
-		String username="";
-		String password="";
-		String[] data = datagram.split("\n");
-		for(String s:data){
-			if(s.split(":")[0].equals("username"))
-				username = s.split(":")[1];
-			if(s.split(":")[0].equals("password"))
-				password = s.split(":")[1];
-		}
-		
+	public void validate(String username, String password){
 		if(this.server.userDao.login(username, password) != null){
 			if(this.server.socketPool.get(username) == null){
+				this.server.alterOnlineUser(username);
 				this.server.socketPool.put(username, this.socket);
+				this.username = username;
 				String senddatagram = "From:Server\n";
 				senddatagram += "To:"+username+"\n";
 				senddatagram += "Type:Login\n";
 				senddatagram += "Data:Success\n";
 				this.server.sendData(this.socket, senddatagram);
 				this.server.showOnlineUser(socket, username);
+				
 			}else{
 				System.out.println(username+" has already Logged.");
 			}
@@ -71,12 +44,39 @@ public class receiveClientDataThread extends Thread {
 		}
 	}
 	
+	public void loginService(String datagram){
+		String username="";
+		String password="";
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			if(s.split(":")[0].equals("username"))
+				username = s.split(":")[1];
+			if(s.split(":")[0].equals("password"))
+				password = s.split(":")[1];
+		}
+		this.validate(username, password);
+	}
+	
+	public void registerService(String datagram){
+		String username="";
+		String password="";
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			if(s.split(":")[0].equals("username"))
+				username = s.split(":")[1];
+			if(s.split(":")[0].equals("password"))
+				password = s.split(":")[1];
+		}
+		
+		
+	}
+	
 	public void dispatchDatagram(String To, String datagram, String type){
 		if(To.equals("Server")){
 			if(type.equals("Login")){
 				loginService(datagram);				
 			}else if (type.equals("Register")) {
-				
+				registerService(datagram);
 			}
 		}else{
 			
@@ -109,9 +109,9 @@ public class receiveClientDataThread extends Thread {
 				this.dispatchDatagram(to, datagram, type);
 			} 
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(this.username+" is offline!");
 		}
 	}
 }

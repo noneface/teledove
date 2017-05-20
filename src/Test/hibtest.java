@@ -24,6 +24,7 @@ public class hibtest {
 	}
 	@Test
 	public void load(){
+		Session session = HibernateUtil.getSession();
 		Dao dao = new Dao();
 		User user = dao.login("noneface","123456");
 		System.out.println(user.getId());

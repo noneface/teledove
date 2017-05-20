@@ -12,7 +12,8 @@ import java.awt.event.ActionEvent;
 public class registerPanel extends JPanel{
 	
 	private JLabel jlabel;
-	private JTextField jField;
+	private JTextField usernameFiled;
+	private JTextField passwordFiled;
 	private JButton jButton;
 	private JButton jButton_1;
 	private mainPanel mainpanel;
@@ -38,24 +39,32 @@ public class registerPanel extends JPanel{
     	  jlabel.setFont(new Font (Font.DIALOG, Font.BOLD, 22));
     	  this.add(jlabel);	  
     	  
-    	  jField = new JTextField();
-    	  jField.setBounds(220, 160, 200, 30);
-    	  this.add(jField);
+    	  usernameFiled = new JTextField();
+    	  usernameFiled.setBounds(220, 160, 200, 30);
+    	  this.add(usernameFiled);
     	  
-    	  jField = new JTextField();
-    	  jField.setBounds(220, 215, 200, 30);
-    	  this.add(jField);
+    	  passwordFiled = new JTextField();
+    	  passwordFiled.setBounds(220, 215, 200, 30);
+    	  this.add(passwordFiled);
     	  
     	  jButton = new JButton("登录");
+    	  jButton.addActionListener(new ActionListener() {
+      	  	public void actionPerformed(ActionEvent arg0) {
+      	  		mainpanel.card.previous(mainpanel);
+      	  	}
+      	  });
     	  jButton.setBounds(100, 293, 120, 30);
     	  this.add(jButton);
     	  
+    	  
     	  jButton_1 = new JButton("注册");
-    	  jButton.addActionListener(new ActionListener() {
-    	  	public void actionPerformed(ActionEvent arg0) {
-    	  		mainpanel.card.previous(mainpanel);
-    	  	}
-    	  });
+    	  jButton_1.addActionListener(new ActionListener() {
+      	  	public void actionPerformed(ActionEvent arg0) {
+	      	  	String username = usernameFiled.getText();
+		  		String password = passwordFiled.getText();
+		  		mainpanel.client.register(username, password);
+      	  	}
+      	  });
     	  jButton_1.setBounds(320, 293, 120, 30);
     	  this.add(jButton_1);
       }

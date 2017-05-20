@@ -7,14 +7,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import org.hibernate.Session;
+
 import com.teledove.dao.Dao;
+import com.teledove.dao.HibernateUtil;
 
 public class Server {
 	
 	public HashMap<String, Socket> socketPool;
 	private ServerSocket serverSocket;
 	public Dao userDao;
-	public Server() {
+	public Server() { 
 		 this.userDao = new Dao();
 		 this.socketPool = new HashMap<>();
 		 try {
