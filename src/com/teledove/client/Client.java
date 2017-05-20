@@ -74,6 +74,17 @@ public class Client {
 		this.sendData(datagram);
 	}
 	
+	public void register(String username, String password){
+			
+		String datagram = "From:Anonymous\n";
+		datagram += "To:Server\n";
+		datagram += "Type:Register\n";
+		datagram += "username:"+username+"\n";
+		datagram += "password:"+password+"\n";
+		this.sendData(datagram);
+	}
+	
+	
 	public void sendMessage(String message){
 		String datagram = "From:";
 	}
