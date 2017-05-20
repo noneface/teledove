@@ -33,7 +33,11 @@ public class receiveClientDataThread extends Thread {
 				this.server.showOnlineUser(socket, username);
 				
 			}else{
-				System.out.println(username+" has already Logged.");
+				String senddatagram = "From:Server\n";
+				senddatagram += "To:"+username+"\n";
+				senddatagram += "Type:Login\n";
+				senddatagram += "Data:Already Login\n";
+				this.server.sendData(this.socket, senddatagram);
 			}
 		}else{
 			String senddatagram = "From:Server\n";
