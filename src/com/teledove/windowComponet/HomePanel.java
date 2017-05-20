@@ -30,7 +30,7 @@ public class HomePanel extends JPanel{
 	
 	public HomePanel(){
 		this.setLayout(null);
-    	this.setBounds(100, 100, 292, 570);
+    	this.setBounds(100, 100, 244, 570);
     	  
     	this.lblNewLabel = new JLabel("账号名");
     	lblNewLabel.setBounds(89, 30, 72, 18);
@@ -48,13 +48,13 @@ public class HomePanel extends JPanel{
     	  
     	  scrollPane = new JScrollPane(user);
     	  scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
-    	  scrollPane.setBounds(14, 82, 264, 432);
+    	  scrollPane.setBounds(14, 82, 216, 432);
     	  add(scrollPane);
     	  
     	  JComboBox<String> comboBox = new JComboBox<String>();
     	  comboBox.addItem("在线");
     	  comboBox.addItem("隐身");
-    	  comboBox.setBounds(203, 27, 58, 24);
+    	  comboBox.setBounds(165, 27, 58, 24);
     	  add(comboBox);
     	  
     	  label = new JLabel("\u7528\u6237\u540D");
