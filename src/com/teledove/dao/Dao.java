@@ -9,8 +9,6 @@ import com.teledove.model.User;
 
 public class Dao {
 	
-
-	
     public User login(String username,String password){
     	String hql = "from User where username=? and password=?";
     	HibernateUtil.getSession().getTransaction().begin();
