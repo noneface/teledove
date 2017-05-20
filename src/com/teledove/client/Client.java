@@ -3,8 +3,6 @@ package com.teledove.client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class Client {
 	private Socket socket;
@@ -16,12 +14,9 @@ public class Client {
 			this.socket = new Socket("127.0.0.1", 9999);
 			this.dataOutputStream = new DataOutputStream(this.socket.getOutputStream());
 			new receiveServerDataThread(socket).start();
-		} catch (UnknownHostException e) {
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Connect server error");
 		}
 		
 	}
@@ -30,7 +25,7 @@ public class Client {
 			
 		String datagram = "From:Anonymous\n";
 		datagram += "To:Server\n";
-		datagram += "type:Login\n";
+		datagram += "Type:Login\n";
 		datagram += "username:"+username+"\n";
 		datagram += "password:"+password+"\n";
 		this.sendData(datagram);

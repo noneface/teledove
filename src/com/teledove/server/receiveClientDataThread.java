@@ -92,7 +92,7 @@ public class receiveClientDataThread extends Thread {
 					datagram += message+"\n";
 					if(message.split(":")[0].equals("To"))
 						to = message.split(":")[1];
-					if(message.split(":")[0].equals("type"))
+					if(message.split(":")[0].equals("Type"))
 						type = message.split(":")[1];
 				}
 
