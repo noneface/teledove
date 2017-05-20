@@ -17,6 +17,63 @@ public class receiveClientDataThread extends Thread {
 		this.socket = socket;
 	}
 	
+	
+	public String validateSocket(Socket socket){
+		String username = null;
+		try {
+			InputStream is = socket.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String message;
+			while(!((message=br.readLine()).equals("Done"))){
+				if(message.split(":")[0].equals("username"))
+					username = message.split(":")[1];
+			}
+			if(this.server.socketPool.get(username) == null){
+				this.server.alterOnlineUser(username);
+				this.server.socketPool.put(username, socket);
+			}	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return username;
+	}
+	
+	public void loginService(String datagram){
+		String username="";
+		String password="";
+		String[] data = datagram.split("\n");
+		for(String s:data){
+			if(s.split(":")[0].equals("username"))
+				username = s.split(":")[1];
+			if(s.split(":")[0].equals("password"))
+				password = s.split(":")[1];
+		}
+		
+		if(this.server.userDao.login(username, password) != null){
+			if(this.server.socketPool.get(username) == null){
+				this.server.socketPool.put(username, this.socket);
+				System.out.println(username+" is Login.");
+			}else{
+				System.out.println(username+" has already Logged.");
+			}
+		}else{
+			System.out.println(username+"'s password error");
+		}
+	}
+	
+	public void dispatchDatagram(String To, String datagram, String type){
+		if(To.equals("Server")){
+			if(type.equals("Login")){
+				loginService(datagram);
+			}else if (type.equals("Register")) {
+				
+			}
+		}else{
+			
+		}
+	}
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -27,24 +84,26 @@ public class receiveClientDataThread extends Thread {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String message;
 			while(true){
-				String toUser = null;
+				String to = null;
 				String datagram = "";
+				String type = null;
 				
 				while(!((message=br.readLine()).equals("Done"))){
 					datagram += message+"\n";
 					if(message.split(":")[0].equals("To"))
-						toUser = message.split(":")[1];
+						to = message.split(":")[1];
+					if(message.split(":")[0].equals("Type"))
+						type = message.split(":")[1];
 				}
-				
-				Socket toSocket = this.server.socketPool.get(toUser);
-				this.server.sendData(toSocket, datagram);
-			}
+
+				System.out.println(datagram);
+				System.out.println("\n");
+				this.dispatchDatagram(to, datagram, type);
+			} 
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 }

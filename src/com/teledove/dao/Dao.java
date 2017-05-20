@@ -11,6 +11,7 @@ public class Dao {
     	String hql = "from User where username=? and password=?";
     	HibernateUtil.getSession().getTransaction().begin();
     	Query query = HibernateUtil.getSession().createQuery(hql);
+    	
     	query.setParameter(0, username);
     	query.setParameter(1, password);
 		User user = null;
