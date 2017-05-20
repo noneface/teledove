@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class loginPanel extends JPanel{
 	
@@ -18,6 +19,7 @@ public class loginPanel extends JPanel{
 	private JButton jButton_1;
 	private mainPanel mainpanel;
 	private JPasswordField passwordField;
+	private JComboBox comboBox;
 	
     public loginPanel(mainPanel mainpanel){
 
@@ -53,7 +55,7 @@ public class loginPanel extends JPanel{
     	  		mainpanel.client.connectServer(username, password);
     	  	}
     	  });
-    	  jButton.setBounds(100, 293, 120, 30);
+    	  jButton.setBounds(100, 323, 120, 30);
     	  this.add(jButton);
     	  
     	  jButton_1 = new JButton("注册");
@@ -62,11 +64,22 @@ public class loginPanel extends JPanel{
     	  		mainpanel.card.next(mainpanel);
     	  	}
     	  });
-    	  jButton_1.setBounds(320, 293, 120, 30);
+    	  jButton_1.setBounds(317, 323, 120, 30);
     	  this.add(jButton_1);
     	  
     	  passwordField = new JPasswordField();
     	  passwordField.setBounds(220, 221, 200, 30);
     	  add(passwordField);
+    	  
+    	  jlabel = new JLabel("状态");
+    	  jlabel.setFont(new Font ("隶书", Font.BOLD, 22));
+    	  jlabel.setBounds(100, 274, 72, 18);
+    	  add(jlabel);
+    	  
+    	  comboBox = new JComboBox();
+    	  comboBox.addItem("在线");
+    	  comboBox.addItem("隐身");
+    	  comboBox.setBounds(220, 271, 97, 24);
+    	  add(comboBox);
       }
 }

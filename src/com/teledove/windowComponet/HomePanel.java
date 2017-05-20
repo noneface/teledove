@@ -29,7 +29,7 @@ public class HomePanel extends JPanel{
 	
 	public HomePanel(){
 		this.setLayout(null);
-    	this.setBounds(100, 100, 292, 570);
+    	this.setBounds(100, 100, 244, 570);
     	  
     	this.lblNewLabel = new JLabel("账号名");
     	lblNewLabel.setBounds(89, 30, 72, 18);
@@ -51,7 +51,11 @@ public class HomePanel extends JPanel{
     	label = new JLabel("\u7528\u6237\u540D");
     	label.setBounds(21, 30, 58, 18);
     	add(label);
-    	  
+    	scrollPane = new JScrollPane(user);
+    	scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
+    	scrollPane.setBounds(14, 82, 216, 432);
+    	add(scrollPane);
+
     	this.validate();
-      } 
+	}
 }
