@@ -36,7 +36,12 @@ public class ChatPanel extends JPanel{
 	  scrollPane.setBounds(14, 13, 523, 311);
 	  add(scrollPane);
 	  
+
 	  this.textPane = new JTextPane();
+
+	  this.textPane.setFocusable(false);
+	  this.textPane.setEditable(false);
+
 	  scrollPane.setViewportView(textPane);
 	  
 	  JLabel label = new JLabel("字体");
@@ -44,6 +49,7 @@ public class ChatPanel extends JPanel{
 	  add(label);
 	  
 	  JComboBox comboBox = new JComboBox();
+	  comboBox.setFocusable(false);
 	  comboBox.addItem("宋体");
 	  comboBox.addItem("隶书");
 	  comboBox.setBounds(76, 334, 59, 24);
@@ -54,6 +60,7 @@ public class ChatPanel extends JPanel{
 	  add(lblNewLabel);
 	  
 	  JComboBox comboBox_1 = new JComboBox();
+	  comboBox_1.setFocusable(false);
 	  comboBox_1.addItem("18");
 	  comboBox_1.addItem("24");
 	  comboBox_1.setBounds(258, 334, 64, 24);
@@ -64,6 +71,7 @@ public class ChatPanel extends JPanel{
 	  add(label_1);
 	  
 	  JComboBox comboBox_2 = new JComboBox();
+	  comboBox_2.setFocusable(false);
 	  comboBox_2.addItem("红色");
 	  comboBox_2.addItem("黑色");
 	  comboBox_2.setBounds(429, 334, 69, 24);
