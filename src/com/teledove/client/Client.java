@@ -35,7 +35,7 @@ public class Client {
 		this.loginFrame = new loginFrame(this);
 		
 		try {
-			this.socket = new Socket("127.0.0.1", 9999);
+			this.socket = new Socket("192.168.43.218", 9999);
 			this.dataOutputStream = new DataOutputStream(this.socket.getOutputStream());
 			new receiveServerDataThread(this, socket).start();
 		}catch (Exception e) {

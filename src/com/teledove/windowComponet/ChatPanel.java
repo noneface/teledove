@@ -91,6 +91,8 @@ public class ChatPanel extends JPanel{
 	  
 	  JComboBox comboBox = new JComboBox();
 	  comboBox.addItem("15");
+	  comboBox.addItem("18");
+	  comboBox.addItem("22");
 	  comboBox.addItem("25");
 	  comboBox.addActionListener(new ActionListener() {
 		  	public void actionPerformed(ActionEvent arg0) {
@@ -98,6 +100,7 @@ public class ChatPanel extends JPanel{
 			  editorPane.setFont(new Font(comboBox_1.getSelectedItem().toString(),Font.PLAIN,num));
 		  	}
 		  });
+	  comboBox.setFocusable(false);
 	  comboBox.setBounds(263, 331, 72, 24);
 	  add(comboBox);
 	  
@@ -109,6 +112,13 @@ public class ChatPanel extends JPanel{
 	  comboBox_1.addItem("宋体");
 	  comboBox_1.addItem("隶书");
 	  comboBox_1.addItem("黑体");
+	  comboBox_1.addActionListener(new ActionListener() {
+		  	public void actionPerformed(ActionEvent e) {
+			  	  int num =Integer.parseInt(comboBox.getSelectedItem().toString());
+				  editorPane.setFont(new Font(comboBox_1.getSelectedItem().toString(),Font.PLAIN,num));
+		  	}
+		  });
+	  comboBox_1.setFocusable(false);
 	  comboBox_1.setBounds(69, 331, 67, 24);
 	  add(comboBox_1);
 	  
