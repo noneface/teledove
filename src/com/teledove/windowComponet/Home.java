@@ -18,5 +18,6 @@ public class Home extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.validate();
 		this.setVisible(true);
+		this.setResizable(false);
 	}
 }
