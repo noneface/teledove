@@ -44,4 +44,17 @@ public class Dao {
     	HibernateUtil.getSession().save(user);
     	HibernateUtil.getSession().getTransaction().commit();
     }
+    public User queryUserByUsername(String username){
+    	String hql = "from User where username = ?";
+    	HibernateUtil.getSession().getTransaction().begin();
+    	Query query = HibernateUtil.getSession().createQuery(hql);
+    	query.setParameter(0, username);
+    	User user = null;
+        List<User> Huser = query.list();
+		if(Huser!=null && Huser.size()>0){
+			user=Huser.get(0);
+		}
+		HibernateUtil.getSession().getTransaction().commit();
+		return user;
+    }
 }

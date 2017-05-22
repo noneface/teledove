@@ -4,8 +4,12 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.teledove.dao.Dao;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -62,7 +66,19 @@ public class registerPanel extends JPanel{
       	  	public void actionPerformed(ActionEvent arg0) {
 	      	  	String username = usernameFiled.getText();
 		  		String password = passwordFiled.getText();
-		  		mainpanel.client.register(username, password);
+		  		Dao dao = new Dao();
+		  		if(username.equals("")){
+		  			JOptionPane.showMessageDialog(null, "用户名不能为空","提示", JOptionPane.ERROR_MESSAGE);
+		  			usernameFiled.requestFocus();
+		  		}else if(password.equals("")){
+		  			JOptionPane.showMessageDialog(null, "密码不能为空","提示", JOptionPane.ERROR_MESSAGE);
+		  			passwordFiled.requestFocus();
+		  		}else if(dao.queryUserByUsername(username)!=null){
+		  			JOptionPane.showMessageDialog(null, "该用户已存在","提示", JOptionPane.ERROR_MESSAGE);
+		  			usernameFiled.requestFocus();
+		  		}else{
+		  		    mainpanel.client.register(username, password);
+		  		}
       	  	}
       	  });
     	  jButton_1.setBounds(320, 293, 120, 30);
