@@ -29,4 +29,5 @@ public class chatWindow extends JFrame {
 		this.validate();
 		this.setVisible(true);
 	}
+
 }

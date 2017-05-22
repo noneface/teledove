@@ -13,6 +13,9 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -82,10 +85,16 @@ public class ChatPanel extends JPanel{
 	  	public void actionPerformed(ActionEvent arg0) {
 	  		
 	  		Date date = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh：mm：ss");
 			String d = simpleDateFormat.format(date);
 			
-	  		String message = editorPane.getText();
+	  		String message = "";
+			try {
+				message = URLEncoder.encode(editorPane.getText(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	  		editorPane.setText("");
 	  		addMessage(client.getUserState().getUsername(), message, d);
 	  		client.sendMessage(username, message, d);
@@ -102,6 +111,12 @@ public class ChatPanel extends JPanel{
      }
 	
 	public void addMessage(String fromUser,String message, String d){
+		try {
+			message = URLDecoder.decode(message, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.textPane.setText(textPane.getText()+"  "+fromUser+"("+ d +")\n	"+message+"\n");
 	}
 }

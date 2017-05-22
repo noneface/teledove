@@ -49,8 +49,14 @@ public class HomePanel extends JPanel{
     					int index = u.toString().indexOf("/");
     					if(index>-1){
     						String username = u.toString().substring(0, index);
-    						chatWindow chatwindow = new chatWindow(username, client);
-    						client.chatHash.put(username, chatwindow);
+    						if(client.chatHash.get(username)==null){
+	    						chatWindow chatwindow = new chatWindow(username, client);
+	    						client.chatHash.put(username, chatwindow);
+    						}else{
+    							chatWindow chatWindow = client.chatHash.get(username);
+    							chatWindow.setVisible(true);
+    						}
+    						
     				   }
     				}
     			}
