@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import com.teledove.model.User;
+
 public class receiveClientDataThread extends Thread {
 	
 	private Server server;
@@ -71,10 +73,34 @@ public class receiveClientDataThread extends Thread {
 			if(s.split(":")[0].equals("password"))
 				password = s.split(":")[1];
 		}
-		
-		
+		if(this.registerValidate(username)){
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			this.server.userDao.add(user);
+		}
 	}
-	
+	public boolean registerValidate(String username){
+		if(this.server.userDao.queryUserByUsername(username)!=null){
+			String senddatagram = "From:Server\n";
+			senddatagram += "To:"+username+"\n";
+			senddatagram += "Type:Register\n";
+			senddatagram += "Data:Failed\n";
+			this.server.sendData(this.socket, senddatagram);
+			return false;
+		}else{
+			this.server.showOnlineUser(socket, username);
+			this.server.alterOnlineUser(username);
+			this.server.socketPool.put(username, this.socket);
+			this.username=username;
+			String senddatagram = "From:Server\n";
+			senddatagram += "To:"+username+"\n";
+			senddatagram += "Type:Register\n";
+			senddatagram += "Data:Success\n";
+			this.server.sendData(this.socket, senddatagram);
+			return true;
+		}
+	}
 	public void messageService(String datagram){
 		String[] data = datagram.split("\n");
 		String to = null;

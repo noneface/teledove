@@ -30,7 +30,7 @@ public class receiveServerDataThread extends Thread {
 			if(type.equals("Login")){
 				processLogin(datagram);
 			}else if (type.equals("Register")) {
-				
+				processRegister(datagram);
 			}else if(type.equals("AllState")){
 				processAllState(datagram);
 			}else if(type.equals("Notify")){
@@ -81,9 +81,11 @@ public class receiveServerDataThread extends Thread {
 		if(Confirm.equals("Success")){
 			this.client.getLoginFrame().dispose();
 			this.client.setUserState(new UserState(username, "online"));
-			this.client.setHome(new Home(this.client));
+			Home home = new Home(this.client);
+			home.homePanel.user.setModel(this.client.userModel);
+			this.client.setHome(home);
 		}else{
-			System.out.println("Login error");
+			JOptionPane.showMessageDialog(null, "该用户已存在", "噢哦~", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}

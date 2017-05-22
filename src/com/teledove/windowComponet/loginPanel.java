@@ -19,7 +19,6 @@ public class loginPanel extends JPanel{
 	private JButton jButton_1;
 	private mainPanel mainpanel;
 	private JPasswordField passwordField;
-	private JComboBox comboBox;
 	
     public loginPanel(mainPanel mainpanel){
 
@@ -39,7 +38,7 @@ public class loginPanel extends JPanel{
     	  this.add(jlabel);
     	  
     	  jlabel = new JLabel("密 码");
-    	  jlabel.setBounds(100, 190, 80, 80);
+    	  jlabel.setBounds(100, 214, 80, 80);
     	  jlabel.setFont(new Font (Font.DIALOG, Font.BOLD, 22));
     	  this.add(jlabel);	  
     	  
@@ -55,7 +54,7 @@ public class loginPanel extends JPanel{
     	  		mainpanel.client.connectServer(username, password);
     	  	}
     	  });
-    	  jButton.setBounds(100, 335, 120, 30);
+    	  jButton.setBounds(98, 335, 120, 30);
     	  this.add(jButton);
     	  
     	  jButton_1 = new JButton("注册");
@@ -68,18 +67,7 @@ public class loginPanel extends JPanel{
     	  this.add(jButton_1);
     	  
     	  passwordField = new JPasswordField();
-    	  passwordField.setBounds(220, 221, 200, 30);
+    	  passwordField.setBounds(220, 242, 200, 30);
     	  add(passwordField);
-    	  
-    	  jlabel = new JLabel("状态");
-    	  jlabel.setFont(new Font ("隶书", Font.BOLD, 22));
-    	  jlabel.setBounds(100, 274, 72, 30);
-    	  add(jlabel);
-    	  
-    	  comboBox = new JComboBox();
-    	  comboBox.addItem("在线");
-    	  comboBox.addItem("隐身");
-    	  comboBox.setBounds(220, 280, 97, 24);
-    	  add(comboBox);
       }
 }
