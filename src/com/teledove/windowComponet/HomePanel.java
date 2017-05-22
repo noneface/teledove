@@ -69,10 +69,6 @@ public class HomePanel extends JPanel{
     	label = new JLabel("\u7528\u6237\u540D");
     	label.setBounds(21, 30, 58, 18);
     	add(label);
-    	scrollPane = new JScrollPane(user);
-    	scrollPane.setBorder(BorderFactory.createTitledBorder("用户列表"));
-    	scrollPane.setBounds(14, 82, 216, 432);
-    	add(scrollPane);
 
     	this.validate();
 	}
