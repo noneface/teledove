@@ -102,6 +102,7 @@ public class receiveServerDataThread extends Thread {
 		}
 	}
 	
+	
 	public void processAlterState(String datagram){
 		String[] data = datagram.split("\n");
 		for(String s:data){

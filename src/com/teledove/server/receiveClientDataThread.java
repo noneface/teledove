@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import com.teledove.model.User;
 
+import sun.net.www.content.text.plain;
+
 public class receiveClientDataThread extends Thread {
 	
 	private Server server;
@@ -144,6 +146,36 @@ public class receiveClientDataThread extends Thread {
 		
 	}
 	
+	
+	public void chageStateService(String datagram){
+		String[] data = datagram.split("\n");
+		String state = "";
+		for(String s:data){
+			if(s.split(":")[0].equals("State"))
+				state = s.split(":")[1];
+		}
+		
+		if(state.equals("hide")){
+			for(String user: this.server.hideUser){
+				if(user.equals(this.username)){
+					this.server.hideUser.remove(user);
+					break;
+				}
+					
+			}
+			this.server.hideUser.add(this.username);
+			this.server.alterOfflineUser(this.username);
+		}else{
+			for(String user: this.server.hideUser){
+				if(user.equals(this.username)){
+					this.server.hideUser.remove(user);
+					break;
+				}	
+			}
+			this.server.alterOnlineUser(this.username);
+		}	
+	}
+	
 	public void dispatchDatagram(String To, String datagram, String type){
 		if(To.equals("Server")){
 			if(type.equals("Login")){
@@ -152,6 +184,8 @@ public class receiveClientDataThread extends Thread {
 				registerService(datagram);
 			}else if(type.equals("Logout")){
 				logoutService(datagram);
+			}else if(type.equals("State")){
+				chageStateService(datagram);
 			}
 		}else{
 			if(type.equals("Message")){

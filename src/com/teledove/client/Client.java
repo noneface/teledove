@@ -96,7 +96,8 @@ public class Client {
 	}
 	
 	public void register(String username, String password){
-			
+		
+		
 		String datagram = "From:Anonymous\n";
 		datagram += "To:Server\n";
 		datagram += "Type:Register\n";
@@ -105,6 +106,15 @@ public class Client {
 		this.sendData(datagram);
 	}
 	
+	
+	public void setState(String state){
+		this.userState.setUserState(state);
+		String datagram = "From:"+this.userState.getUsername()+"\n";
+		datagram += "To:Server\n";
+		datagram += "Type:State\n";
+		datagram += "State:"+state+"\n";
+		this.sendData(datagram);
+	}
 	
 	public void sendMessage(String username, String message, String d){
 		String datagram = "From:"+this.userState.getUsername()+"\n";

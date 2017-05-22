@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 
@@ -19,6 +21,7 @@ public class Server {
 	
 	public HashMap<String, Socket> socketPool;
 	public HashMap<String, ArrayList<String>> offLineMessage;
+	public ArrayList<String> hideUser;
 	
 	private ServerSocket serverSocket;
 	public Dao userDao;
@@ -28,6 +31,7 @@ public class Server {
 		 this.userDao = new Dao();
 		 userList = this.userDao.load();
 		 
+		this.hideUser = new ArrayList<>();
 		 
 		 this.socketPool = new HashMap<>();
 		 this.offLineMessage = new HashMap<>();
@@ -95,8 +99,15 @@ public class Server {
 		for(User u:userList){
 			if(!username.equals(u.getUsername())){
 				datagram += "State:"+u.getUsername();
-				if(this.socketPool.get(u.getUsername())!=null)
-					datagram += "/online\n";
+				if(this.socketPool.get(u.getUsername())!=null){
+					String state = "/online\n";
+					for(String user: this.hideUser){
+						if(user.equals(username))
+							state = "/offline\n";
+					}
+					
+					datagram += state;
+				}
 				else{
 					datagram += "/offline\n";
 				}
