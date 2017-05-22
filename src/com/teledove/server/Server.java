@@ -50,20 +50,26 @@ public class Server {
 	
 	
 	public void alterOnlineUser(String username){
-		for(Socket s: this.socketPool.values()){
-			String datagram = "From:Server\n";
-			datagram += "Type:Notify\n";
-			datagram += "State:"+username+"/online\n";
-			this.sendData(s, datagram);
+		for(String user: this.socketPool.keySet()){
+			if(!user.equals(username)){
+				Socket s = this.socketPool.get(user);
+				String datagram = "From:Server\n";
+				datagram += "Type:Notify\n";
+				datagram += "State:"+username+"/online\n";
+				this.sendData(s, datagram);
+			}
 		}
 	}
 	
 	public void alterOfflineUser(String username){
-		for(Socket s: this.socketPool.values()){
-			String datagram = "From:Server\n";
-			datagram += "Type:Notify\n";
-			datagram += "State:"+username+"/offline\n";
-			this.sendData(s, datagram);
+		for(String user: this.socketPool.keySet()){
+			if(!user.equals(username)){
+				Socket s = this.socketPool.get(user);
+				String datagram = "From:Server\n";
+				datagram += "Type:Notify\n";
+				datagram += "State:"+username+"/offline\n";
+				this.sendData(s, datagram);
+			}
 		}
 	}
 	
@@ -105,7 +111,6 @@ public class Server {
 						if(user.equals(username))
 							state = "/offline\n";
 					}
-					
 					datagram += state;
 				}
 				else{

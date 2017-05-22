@@ -20,6 +20,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.JRadioButton;
 
 public class HomePanel extends JPanel{
 	public JList user;
@@ -27,16 +30,17 @@ public class HomePanel extends JPanel{
 	public JLabel lblNewLabel;
 	private JLabel label;
 	private Client client;
+	public String state;
 	
 	public HomePanel(Client client){
 		this.client = client;
-		
+		this.state = "online";
 		this.setLayout(null);
     	this.setBounds(100, 100, 254, 570);
     	  
     	this.lblNewLabel = new JLabel("账号名");
-    	lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 25));
-    	lblNewLabel.setBounds(82, 18, 100, 39);
+    	lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 20));
+    	lblNewLabel.setBounds(89, 10, 155, 39);
     	add(lblNewLabel);
     	
     	user = new JList();
@@ -73,21 +77,31 @@ public class HomePanel extends JPanel{
     	scrollPane.setBounds(14, 82, 223, 461);
     	add(scrollPane);
     	  
-    	label = new JLabel("\u7528\u6237\u540D");
+    	label = new JLabel("用户名:");
     	label.setFont(new Font("宋体", Font.PLAIN, 18));
-    	label.setBounds(21, 30, 58, 18);
+    	label.setBounds(14, 20, 76, 18);
     	add(label);
     	
     	JComboBox comboBox = new JComboBox();
-    	comboBox.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent arg0) {
-    			String state = comboBox.getSelectedItem().toString();
-    		}
+    	comboBox.addItemListener(new ItemListener(){
+    		   @Override
+    		   public void itemStateChanged(ItemEvent e)
+    		   {
+    		//如果选中了一个 
+    		    if (e.getStateChange() == ItemEvent.SELECTED){
+    		    	String cstate = (String) comboBox.getSelectedItem();
+    		    	if( ! cstate.equals(state)){
+    		    		state = cstate;
+    		    		client.setState(cstate);
+    		    	}
+    		    }
+    		   }
     	});
-    	comboBox.addItem("在线");
-    	comboBox.addItem("隐身");
     	
-    	comboBox.setBounds(186, 29, 58, 24);
+    	comboBox.addItem("online");
+    	comboBox.addItem("hide");
+    	
+    	comboBox.setBounds(145, 47, 92, 24);
     	add(comboBox);
 
     	this.validate();
