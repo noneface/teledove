@@ -4,18 +4,30 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+
+import com.teledove.client.Client;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 
 public class ChatPanel extends JPanel{
 	private JScrollPane scrollPane;
-	public ChatPanel(){
+	public Client client;
+	public String username;
+	private JTextPane textPane;
+	private JEditorPane editorPane;
+	
+	public ChatPanel(String username, Client client){
+		this.client = client;
+		this.username = username;
   	  this.setLayout(null);
   	  this.setBounds(100, 100, 551, 495);
   	  
@@ -24,7 +36,7 @@ public class ChatPanel extends JPanel{
 	  scrollPane.setBounds(14, 13, 523, 311);
 	  add(scrollPane);
 	  
-	  JTextPane textPane = new JTextPane();
+	  this.textPane = new JTextPane();
 	  scrollPane.setViewportView(textPane);
 	  
 	  JLabel label = new JLabel("字体");
@@ -57,23 +69,31 @@ public class ChatPanel extends JPanel{
 	  comboBox_2.setBounds(429, 334, 69, 24);
 	  add(comboBox_2);
 	  
-	  JButton button = new JButton("关闭");
-	  button.addActionListener(new ActionListener() {
+	  JButton button_1 = new JButton("发送");
+	  button_1.addActionListener(new ActionListener() {
 	  	public void actionPerformed(ActionEvent arg0) {
 	  		
+	  		Date date = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			String d = simpleDateFormat.format(date);
+			
+	  		String message = editorPane.getText();
+	  		editorPane.setText("");
+	  		addMessage(client.getUserState().getUsername(), message, d);
+	  		client.sendMessage(username, message, d);
 	  	}
 	  });
-	  button.setBounds(302, 455, 113, 27);
-	  add(button);
-	  
-	  JButton button_1 = new JButton("发送");
 	  button_1.setBounds(424, 455, 113, 27);
 	  add(button_1);
 	  
-	  JEditorPane editorPane = new JEditorPane();
+	  this.editorPane = new JEditorPane();
 	  editorPane.setBounds(14, 368, 523, 78);
 	  add(editorPane);
   	  
   	  this.validate();
      }
+	
+	public void addMessage(String fromUser,String message, String d){
+		this.textPane.setText(textPane.getText()+"  "+fromUser+"("+ d +")\n	"+message+"\n");
+	}
 }

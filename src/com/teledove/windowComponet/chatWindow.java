@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.teledove.client.Client;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
@@ -13,28 +16,12 @@ public class chatWindow extends JFrame {
 
 	private JPanel contentPane;
 	static String username;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					chatWindow frame = new chatWindow(username);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	public ChatPanel chatPanel;
 	/**
 	 * Create the frame.
 	 */
-	public chatWindow(String username) {
-		ChatPanel chatPanel = new ChatPanel();
+	public chatWindow(String username, Client client) {
+		this.chatPanel = new ChatPanel(username, client);
 		this.setTitle("与"+username+"对话中");
 		this.setContentPane(chatPanel);
 		this.setBounds(100, 100, 561, 535);

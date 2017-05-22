@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 
 import javax.swing.ListSelectionModel;
 
+import com.teledove.client.Client;
+
 import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -22,9 +24,11 @@ public class HomePanel extends JPanel{
 	private JScrollPane scrollPane;
 	public JLabel lblNewLabel;
 	private JLabel label;
-
+	private Client client;
 	
-	public HomePanel(){
+	public HomePanel(Client client){
+		this.client = client;
+		
 		this.setLayout(null);
     	this.setBounds(100, 100, 254, 570);
     	  
@@ -45,7 +49,8 @@ public class HomePanel extends JPanel{
     					int index = u.toString().indexOf("/");
     					if(index>-1){
     						String username = u.toString().substring(0, index);
-    						chatWindow chatwindow = new chatWindow(username);
+    						chatWindow chatwindow = new chatWindow(username, client);
+    						client.chatHash.put(username, chatwindow);
     				   }
     				}
     			}

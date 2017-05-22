@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.teledove.model.UserState;
 import com.teledove.windowComponet.Home;
+import com.teledove.windowComponet.chatWindow;
 
 public class receiveServerDataThread extends Thread {
 	private Socket socket;
@@ -36,7 +37,9 @@ public class receiveServerDataThread extends Thread {
 				processAlterState(datagram);
 			}
 		}else{
-			
+			if(type.equals("Message")){
+				ProcessMessage(datagram);
+			}
 		}
 	}
 	
@@ -54,7 +57,7 @@ public class receiveServerDataThread extends Thread {
 		if(Confirm.equals("Success")){
 			this.client.getLoginFrame().dispose();
 			this.client.setUserState(new UserState(username, "online"));
-			Home home = new Home();
+			Home home = new Home(this.client);
 			home.homePanel.user.setModel(this.client.userModel);
 			this.client.setHome(home);
 		}else{
@@ -78,7 +81,7 @@ public class receiveServerDataThread extends Thread {
 		if(Confirm.equals("Success")){
 			this.client.getLoginFrame().dispose();
 			this.client.setUserState(new UserState(username, "online"));
-			this.client.setHome(new Home());
+			this.client.setHome(new Home(this.client));
 		}else{
 			System.out.println("Login error");
 		}
@@ -116,6 +119,30 @@ public class receiveServerDataThread extends Thread {
 			}	
 		}
 		
+	}
+	
+	public void ProcessMessage(String datagram){
+		String[] data = datagram.split("\n");
+		String from=null;
+		String message = "";
+		String date = "";
+		for(String s:data){
+			if(s.split(":")[0].equals("From"))
+				from = s.split(":")[1];
+			if(s.split(":")[0].equals("Data"))
+				message = s.split(":")[1];
+			if(s.split(":")[0].equals("Date"))
+				date = s.split(":")[1];
+		}
+		
+		if(this.client.chatHash.get(from) != null){
+			chatWindow chatwindow = this.client.chatHash.get(from);
+			chatwindow.chatPanel.addMessage(from, message, date);
+		}else{
+			chatWindow chatwindow = new chatWindow(from, this.client);
+			this.client.chatHash.put(from, chatwindow);
+			chatwindow.chatPanel.addMessage(from, message, date);
+		}
 	}
 	
 	@Override

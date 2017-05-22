@@ -3,6 +3,9 @@ package com.teledove.client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -11,6 +14,7 @@ import com.teledove.dao.Dao;
 import com.teledove.model.User;
 import com.teledove.model.UserState;
 import com.teledove.windowComponet.Home;
+import com.teledove.windowComponet.chatWindow;
 import com.teledove.windowComponet.loginFrame;
 
 public class Client {
@@ -20,12 +24,13 @@ public class Client {
 	private Home home;
 	private UserState userState;
 	public DefaultListModel userModel;
-	
+	public HashMap<String, chatWindow> chatHash;
 	
 	public Client() {
 		// this is user client
 
 		this.userModel = new DefaultListModel();
+		this.chatHash = new HashMap<>();
 		
 		this.loginFrame = new loginFrame(this);
 		
@@ -93,8 +98,13 @@ public class Client {
 	}
 	
 	
-	public void sendMessage(String message){
-		String datagram = "From:";
+	public void sendMessage(String username, String message, String d){
+		String datagram = "From:"+this.userState.getUsername()+"\n";
+		datagram += "To:"+username+"\n";
+		datagram += "Type:Message\n";
+		datagram += "Date:"+d+"\n";
+		datagram += "Data:"+message+"\n";
+		this.sendData(datagram);
 	}
 	
 	public void sendData(String data){

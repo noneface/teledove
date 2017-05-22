@@ -75,6 +75,24 @@ public class receiveClientDataThread extends Thread {
 		
 	}
 	
+	public void messageService(String datagram){
+		String[] data = datagram.split("\n");
+		String to = null;
+		String message = "";
+		for(String s:data){
+			if(s.split(":")[0].equals("To"))
+				to = s.split(":")[1];
+			if(s.split(":")[0].equals("Data"))
+				message = s.split(":")[1];
+		}
+		
+		Socket socket = this.server.socketPool.get(to);
+		System.out.println("send message");
+		
+		
+		this.server.sendData(socket, datagram);
+	}
+	
 	public void dispatchDatagram(String To, String datagram, String type){
 		if(To.equals("Server")){
 			if(type.equals("Login")){
@@ -83,7 +101,9 @@ public class receiveClientDataThread extends Thread {
 				registerService(datagram);
 			}
 		}else{
-			
+			if(type.equals("Message")){
+				messageService(datagram);
+			}
 		}
 	}
 	
