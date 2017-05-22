@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import com.teledove.model.User;
 
@@ -33,6 +34,7 @@ public class receiveClientDataThread extends Thread {
 				senddatagram += "Type:Login\n";
 				senddatagram += "Data:Success\n";
 				this.server.sendData(this.socket, senddatagram);	
+				this.server.alterOfflineMessage(this.username);
 				
 			}else{
 				String senddatagram = "From:Server\n";
@@ -113,10 +115,18 @@ public class receiveClientDataThread extends Thread {
 		}
 		
 		Socket socket = this.server.socketPool.get(to);
-		System.out.println("send message");
-		
-		
-		this.server.sendData(socket, datagram);
+		if(socket != null){
+			this.server.sendData(socket, datagram);
+		}else{
+			ArrayList<String> messageList =  this.server.offLineMessage.get(to);
+			if(messageList == null){
+				messageList = new ArrayList<>();
+				messageList.add(datagram);
+				this.server.offLineMessage.put(to, messageList);
+			}else{
+				messageList.add(datagram);
+			}
+		}
 	}
 	
 	public void logoutService(String datagram){
@@ -178,7 +188,7 @@ public class receiveClientDataThread extends Thread {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(this.username+" is offline!");
+			
 		}
 	}
 }

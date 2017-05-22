@@ -18,6 +18,8 @@ import com.teledove.model.User;
 public class Server {
 	
 	public HashMap<String, Socket> socketPool;
+	public HashMap<String, ArrayList<String>> offLineMessage;
+	
 	private ServerSocket serverSocket;
 	public Dao userDao;
 	private List<User> userList;
@@ -26,7 +28,10 @@ public class Server {
 		 this.userDao = new Dao();
 		 userList = this.userDao.load();
 		 
+		 
 		 this.socketPool = new HashMap<>();
+		 this.offLineMessage = new HashMap<>();
+		 
 		 try {
 			 serverSocket = new ServerSocket(9999);  //  listen the port ,and accept the new socket connect
 			 while(true){
@@ -55,6 +60,30 @@ public class Server {
 			datagram += "Type:Notify\n";
 			datagram += "State:"+username+"/offline\n";
 			this.sendData(s, datagram);
+		}
+	}
+	
+	
+	public void alterOfflineMessage(String username){
+		if(this.offLineMessage.get(username) != null){
+			ArrayList<String> messageList = this.offLineMessage.get(username);
+			if(messageList != null){
+				for(String datagram: messageList){
+					String to = null;
+					String message = "";
+					String[] data = datagram.split("\n");
+					for(String s:data){
+						if(s.split(":")[0].equals("To"))
+							to = s.split(":")[1];
+						if(s.split(":")[0].equals("Data"))
+							message = s.split(":")[1];
+					}
+					
+					Socket socket = this.socketPool.get(to);
+					this.sendData(socket, datagram);
+				}
+				this.offLineMessage.remove(username);
+			}
 		}
 	}
 	
