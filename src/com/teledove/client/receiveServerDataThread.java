@@ -138,6 +138,7 @@ public class receiveServerDataThread extends Thread {
 		if(this.client.chatHash.get(from) != null){
 			chatWindow chatwindow = this.client.chatHash.get(from);
 			chatwindow.chatPanel.addMessage(from, message, date);
+			chatwindow.setVisible(true);
 		}else{
 			chatWindow chatwindow = new chatWindow(from, this.client);
 			this.client.chatHash.put(from, chatwindow);

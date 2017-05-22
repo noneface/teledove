@@ -87,6 +87,14 @@ public class Client {
 		this.sendData(datagram);
 	}
 	
+	public void closeConnect(){
+		String datagram = "From:"+this.userState.getUsername()+"\n";
+		datagram += "To:Server\n";
+		datagram += "Type:Logout\n";
+		datagram += "username:"+this.userState.getUsername()+"\n";
+		this.sendData(datagram);
+	}
+	
 	public void register(String username, String password){
 			
 		String datagram = "From:Anonymous\n";

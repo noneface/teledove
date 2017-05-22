@@ -9,6 +9,5 @@ import com.teledove.windowComponet.loginFrame;
 public class startUp {
 	public static void main(String[] args) {
 		Client client = new Client();
-		
 	}
 }

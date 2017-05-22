@@ -85,8 +85,14 @@ public class ChatPanel extends JPanel{
 	  	public void actionPerformed(ActionEvent arg0) {
 	  		
 	  		Date date = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh：mm：ss");
-			String d = simpleDateFormat.format(date);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			String d = "";
+			try {
+				d = URLEncoder.encode(simpleDateFormat.format(date), "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 	  		String message = "";
 			try {
@@ -113,10 +119,11 @@ public class ChatPanel extends JPanel{
 	public void addMessage(String fromUser,String message, String d){
 		try {
 			message = URLDecoder.decode(message, "UTF-8");
+			d = URLDecoder.decode(d, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.textPane.setText(textPane.getText()+"  "+fromUser+"("+ d +")\n	"+message+"\n");
+		this.textPane.setText(textPane.getText()+"  "+fromUser+"("+ d +")说:\n    "+message+"\n");
 	}
 }
