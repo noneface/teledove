@@ -119,12 +119,29 @@ public class receiveClientDataThread extends Thread {
 		this.server.sendData(socket, datagram);
 	}
 	
+	public void logoutService(String datagram){
+		String[] data = datagram.split("\n");
+		String username = "";
+		for(String s:data){
+			if(s.split(":")[0].equals("username"))
+				username = s.split(":")[1];
+		}
+		
+		if(this.server.socketPool.get(username)!= null){
+			this.server.socketPool.remove(username);
+			this.server.alterOfflineUser(username);
+		}
+		
+	}
+	
 	public void dispatchDatagram(String To, String datagram, String type){
 		if(To.equals("Server")){
 			if(type.equals("Login")){
 				loginService(datagram);				
 			}else if (type.equals("Register")) {
 				registerService(datagram);
+			}else if(type.equals("Logout")){
+				logoutService(datagram);
 			}
 		}else{
 			if(type.equals("Message")){

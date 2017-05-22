@@ -49,6 +49,15 @@ public class Server {
 		}
 	}
 	
+	public void alterOfflineUser(String username){
+		for(Socket s: this.socketPool.values()){
+			String datagram = "From:Server\n";
+			datagram += "Type:Notify\n";
+			datagram += "State:"+username+"/offline\n";
+			this.sendData(s, datagram);
+		}
+	}
+	
 	public void showOnlineUser(Socket socket, String username){
 		String datagram ="From:Server\n";
 		datagram += "To:"+username+"\n";
