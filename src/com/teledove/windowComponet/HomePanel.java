@@ -39,7 +39,6 @@ public class HomePanel extends JPanel{
     	user.addMouseListener(new MouseAdapter() {
     		@Override
     		public void mouseClicked(MouseEvent e) {
-    			System.out.println("111111111111111111111");
     			if(e.getClickCount()==2){
     				Object u = user.getSelectedValue();
     				if(u!=null){
