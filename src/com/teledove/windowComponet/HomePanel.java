@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HomePanel extends JPanel{
 	public JList user;
@@ -34,7 +36,7 @@ public class HomePanel extends JPanel{
     	  
     	this.lblNewLabel = new JLabel("账号名");
     	lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 25));
-    	lblNewLabel.setBounds(93, 18, 131, 39);
+    	lblNewLabel.setBounds(82, 18, 100, 39);
     	add(lblNewLabel);
     	
     	user = new JList();
@@ -75,8 +77,19 @@ public class HomePanel extends JPanel{
     	label.setFont(new Font("宋体", Font.PLAIN, 18));
     	label.setBounds(21, 30, 58, 18);
     	add(label);
+    	
+    	JComboBox comboBox = new JComboBox();
+    	comboBox.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent arg0) {
+    			String state = comboBox.getSelectedItem().toString();
+    		}
+    	});
+    	comboBox.addItem("在线");
+    	comboBox.addItem("隐身");
+    	
+    	comboBox.setBounds(186, 29, 58, 24);
+    	add(comboBox);
 
     	this.validate();
 	}
-	 
 }
