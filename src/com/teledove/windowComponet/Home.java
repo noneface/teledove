@@ -10,8 +10,9 @@ public class Home extends JFrame {
 	
 	public Home() {
 		this.homePanel = new HomePanel();
+		homePanel.user.setBounds(20, 102, 215, 405);
 		this.setContentPane(homePanel);
-		this.setBounds(600, 100, 312, 585);
+		this.setBounds(600, 100, 275, 606);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.validate();
 		this.setVisible(true);

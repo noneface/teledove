@@ -12,6 +12,7 @@ import javax.swing.JButton;
 public class chatWindow extends JFrame {
 
 	private JPanel contentPane;
+	static String username;
 
 	/**
 	 * Launch the application.
@@ -20,7 +21,7 @@ public class chatWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					chatWindow frame = new chatWindow();
+					chatWindow frame = new chatWindow(username);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,9 +33,9 @@ public class chatWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public chatWindow() {
+	public chatWindow(String username) {
 		ChatPanel chatPanel = new ChatPanel();
-		this.setTitle("与"+"xx"+"对话中");
+		this.setTitle("与"+username+"对话中");
 		this.setContentPane(chatPanel);
 		this.setBounds(100, 100, 561, 535);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
