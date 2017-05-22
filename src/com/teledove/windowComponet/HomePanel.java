@@ -33,7 +33,7 @@ public class HomePanel extends JPanel{
     	this.setBounds(100, 100, 254, 570);
     	  
     	this.lblNewLabel = new JLabel("账号名");
-    	lblNewLabel.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 25));
+    	lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 25));
     	lblNewLabel.setBounds(93, 18, 131, 39);
     	add(lblNewLabel);
     	

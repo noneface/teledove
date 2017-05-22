@@ -77,7 +77,7 @@ public class ChatPanel extends JPanel{
 	  editorPane.setBounds(14, 368, 523, 78);
 	  add(editorPane);
 	  
-	  JLabel lblTeledove = new JLabel("\u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014>      Teledove");
+	  JLabel lblTeledove = new JLabel("\u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014> \u2014\u2014>     Teledove");
 	  lblTeledove.setBounds(14, 337, 523, 18);
 	  add(lblTeledove);
   	  
